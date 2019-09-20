@@ -109,23 +109,28 @@ select COUNT(NOME), NOME from RELATORIO
 
 
 --SELECT PARA MOSTRAR QUAL COMPRADOR TEM COMPRA E LIGAÇÃO NA SALESCALL----------
+select * from vw_Compra_e_Salescall
+
+
+create view vw_Compra_e_Salescall as
 SELECT r.* FROM RELATORIO R
 INNER JOIN atualizada R1 ON R1.razao_social = R.nome
 
 
 --SELECT PARA MOSTRAR QUAL COMPRADOR CONTÉM NA SALES E NÃO NA CLIENTE
+select * from vw_Salescall_nao_Clientes
+
+exec view vw_Salescall_nao_Clientes as
 SELECT R.* FROM RELATORIO R
 left outer JOIN ATUALIZADA R1 ON (R.NOME = R1.RAZAO_SOCIAL)
 where R1.razao_social is null
 
 
 --SELECT PARA MOSTRAR QUAL COMPRADOR CONTÉM CLIENTES E NÃO SALES
-SELECT * FROM ATUALIZADA R1
+create view vw_clientes_nao_salles as
+SELECT * FROM ATUALIZADA 
 WHERE razao_social NOT IN (SELECT nome FROM RELATORIO)
 order by razao_social
-
-
-
 
 
 SELECT * FROM RELATORIO
